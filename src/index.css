@@ -1,0 +1,61 @@
+*{
+  font-family: sans-serif;
+}
+
+html {
+  color-scheme: dark;
+}
+
+.content{
+  display: grid;
+  height: 100vh;
+  grid-template-columns: 1fr;
+  grid-auto-flow: row;
+  align-items: start;
+
+  /* background-color: green; */
+}
+
+.banner{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  background-color: slateblue;
+  height: 8rem;
+  width: 100%;
+}
+
+.board-wrapper{
+  width: 100%;
+  display: flex;
+  /* background-color: blue; */
+}
+
+.board{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: fit-content;
+  height: fit-content;
+  margin: auto;
+
+  gap: 0.1rem;
+  padding: 1rem;
+
+  background-color: slategray;
+}
+
+.cell{
+  --size: clamp(40px, 5vw, 100px);
+  width: var(--size);
+  height: var(--size);
+
+  /* height: ; */
+
+  border: solid white 0.1rem;
+  background-color: grey;
+}
+
+.cell:hover{
+  background-color: red;
+}
