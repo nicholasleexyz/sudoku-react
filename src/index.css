@@ -1,5 +1,5 @@
 :root {
-  --cell-block-gap: 1rem;
+  --cell-block-gap: 0.5rem;
 }
 
 * {
@@ -44,26 +44,31 @@ html {
   height: min-content;
   margin: auto;
 
-  gap: 0.1rem;
-  padding: 0.5rem;
+  /* gap: 0.1rem; */
+
+  padding: calc(var(--cell-block-gap) * 0.5);
 
   background-color: grey;
 }
 
 .cell{
+  --size: clamp(40px, 3.75vw, 100px);
+
   user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  --size: clamp(40px, 3.75vw, 100px);
+
   width: var(--size);
   height: var(--size);
 
   /* height: ; */
   /* border: solid white 0.1rem; */
   background-color: slategrey;
-  border: solid black 0.1rem;
-font-size: xx-large;
+  /* border: solid black 0.1rem; */
+  outline: solid black 0.1rem;
+
+  font-size: xx-large;
 }
 
 .cell:hover{
@@ -79,4 +84,8 @@ font-size: xx-large;
 .cell:nth-child(3n):nth-child(-n + 6){
   /* background-color: green; */
   margin-right: var(--cell-block-gap);
+}
+
+.solved {
+  background-color: red;
 }

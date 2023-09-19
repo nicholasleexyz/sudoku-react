@@ -1,47 +1,22 @@
 import "./reset.css";
 import "./index.css";
 import { useState } from "react";
+import { Board } from "./Board";
+import { cellsContext } from "./Contexts";
 
-// eslint-disable-next-line react/prop-types
-function Cell({ id }) {
-  const [val, setVal] = useState(-1);
+const init = Array(81).fill(-1);
 
-  function asdf() {
-    setVal((a) => (a + 1) % 9);
-  }
-
-  return (
-    <div className="cell" onClick={asdf}>
-      {val < 0 ? "" : val + 1}
-    </div>
-  );
-}
-
-function Board() {
-  const a = [...Array(9).keys()];
+export default function App() {
+  const [cells, setCells] = useState(init);
 
   return (
-    <div className="board">
-      {a.map((j) =>
-        a.map((i) => {
-          return <Cell key={j * 9 + i} id={j * 9 + i} />;
-        })
-      )}
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <>
+    <cellsContext.Provider value={[cells, setCells]}>
       <div className="content">
         <div className="banner">SUDOKU</div>
         <div className="board-wrapper">
           <Board />
         </div>
       </div>
-    </>
+    </cellsContext.Provider>
   );
 }
-
-export default App;
