@@ -1,8 +1,8 @@
-:root{
+:root {
   --cell-block-gap: 1rem;
 }
 
-*{
+* {
   font-family: sans-serif;
 }
 
@@ -59,7 +59,6 @@ html {
   height: var(--size);
 
   /* height: ; */
-
   /* border: solid white 0.1rem; */
   background-color: grey;
   border: solid black 0.1rem;
@@ -69,31 +68,13 @@ html {
   background-color: red;
 }
 
-.cell:nth-child(n + 28):nth-child(-n + 36){
-  /* background-color:blueviolet; */
-  margin-top: var(--cell-block-gap);
+.cell:nth-child(27n):nth-child(-n + 54)
+{
+  /* background-color:salmon; */
+  margin-bottom: var(--cell-block-gap);
 }
 
-.cell:nth-child(n + 55):nth-child(-n + 63){
-  /* background-color:pink; */
-  margin-top: var(--cell-block-gap);
-}
-
-.cell:nth-child(3n):not(:nth-child(9n)){
+.cell:nth-child(3n):nth-child(-n + 6){
   /* background-color: green; */
   margin-right: var(--cell-block-gap);
 }
-
-/* .cell:nth-child(3n + 1){
-  margin-left: 4rem;
-  background-color: cyan;
-} */
-
-/* .cell:nth-child(-n + 9){
-  background-color: blue;
-  margin-top: 4rem;
-}
-.cell:nth-child(n + 73){
-  background-color: rosybrown;
-  margin-bottom: 4rem;
-} */
