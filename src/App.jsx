@@ -1,9 +1,20 @@
 import "./reset.css";
 import "./index.css";
+import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
 function Cell({ id }) {
-  return <div className="cell">{id}</div>;
+  const [val, setVal] = useState(-1);
+
+  function asdf() {
+    setVal((a) => (a + 1) % 9);
+  }
+
+  return (
+    <div className="cell" onClick={asdf}>
+      {val < 0 ? "" : val + 1}
+    </div>
+  );
 }
 
 function Board() {
@@ -13,7 +24,7 @@ function Board() {
     <div className="board">
       {a.map((j) =>
         a.map((i) => {
-          return <Cell key={`${i}-${j}`} id={j * 9 + i} />;
+          return <Cell key={j * 9 + i} id={j * 9 + i} />;
         })
       )}
     </div>
