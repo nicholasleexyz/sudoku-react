@@ -47,10 +47,11 @@ html {
   gap: 0.1rem;
   padding: 0.5rem;
 
-  background-color: slategray;
+  background-color: grey;
 }
 
 .cell{
+  user-select: none;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,12 +61,13 @@ html {
 
   /* height: ; */
   /* border: solid white 0.1rem; */
-  background-color: grey;
+  background-color: slategrey;
   border: solid black 0.1rem;
+font-size: xx-large;
 }
 
 .cell:hover{
-  background-color: red;
+  background-color: darkslategrey;
 }
 
 .cell:nth-child(27n):nth-child(-n + 54)
