@@ -1,3 +1,7 @@
+:root{
+  --cell-block-gap: 1rem;
+}
+
 *{
   font-family: sans-serif;
 }
@@ -35,27 +39,61 @@ html {
 .board{
   display: grid;
   grid-template-columns: repeat(9, 1fr);
-  width: fit-content;
-  height: fit-content;
+  grid-auto-flow: row dense;
+  width: min-content;
+  height: min-content;
   margin: auto;
 
   gap: 0.1rem;
-  padding: 1rem;
+  padding: 0.5rem;
 
   background-color: slategray;
 }
 
 .cell{
-  --size: clamp(40px, 5vw, 100px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  --size: clamp(40px, 3.75vw, 100px);
   width: var(--size);
   height: var(--size);
 
   /* height: ; */
 
-  border: solid white 0.1rem;
+  /* border: solid white 0.1rem; */
   background-color: grey;
+  border: solid black 0.1rem;
 }
 
 .cell:hover{
   background-color: red;
 }
+
+.cell:nth-child(n + 28):nth-child(-n + 36){
+  /* background-color:blueviolet; */
+  margin-top: var(--cell-block-gap);
+}
+
+.cell:nth-child(n + 55):nth-child(-n + 63){
+  /* background-color:pink; */
+  margin-top: var(--cell-block-gap);
+}
+
+.cell:nth-child(3n):not(:nth-child(9n)){
+  /* background-color: green; */
+  margin-right: var(--cell-block-gap);
+}
+
+/* .cell:nth-child(3n + 1){
+  margin-left: 4rem;
+  background-color: cyan;
+} */
+
+/* .cell:nth-child(-n + 9){
+  background-color: blue;
+  margin-top: 4rem;
+}
+.cell:nth-child(n + 73){
+  background-color: rosybrown;
+  margin-bottom: 4rem;
+} */
