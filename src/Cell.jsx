@@ -23,6 +23,7 @@ export default function Cell({ index, solved }) {
 
   return (
     <div className={`cell ${solved ? "solved" : ""}`} onClick={asdf}>
+      {/* {index} */}
       {val < 0 ? "" : val + 1}
     </div>
   );

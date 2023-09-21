@@ -5,6 +5,7 @@ import { cellsContext } from "./Contexts";
 
 export function Board() {
   const [solvedRows, setSolvedRows] = useState(Array(9).fill(false));
+  const [solvedColumns, setSolvedColumns] = useState(Array(9).fill(false));
   const [cells, setCells] = useContext(cellsContext);
 
   useEffect(() => {
@@ -21,19 +22,38 @@ export function Board() {
       }
     }
     setSolvedRows(r);
+
+    const columns = [...Array(9).keys()].map((j) =>
+      [...Array(9).keys()].map((i) => cells[i * 9 + j])
+    );
+    // console.log(columns);
+    const c = Array(9).fill(false);
+    for (let i = 0; i < columns.length; i++) {
+      const column = columns[i];
+      if ([...new Set(column.filter((n) => n >= 0))].length == 9) {
+        c[i] = true;
+        // console.log("solved row: " + i);
+      }
+    }
+    setSolvedColumns(c);
+
     // console.log(rows);
   }, [cells]);
 
-  useEffect(() => {
-    console.log(solvedRows);
-  }, [solvedRows]);
+  // useEffect(() => {
+  //   console.log(solvedRows);
+  // }, [solvedRows]);
 
   return (
     <div className="board">
       {[...Array(9).keys()].map((j) =>
         [...Array(9).keys()].map((i) => {
           return (
-            <Cell key={j * 9 + i} index={j * 9 + i} solved={solvedRows[j]} />
+            <Cell
+              key={j * 9 + i}
+              index={j * 9 + i}
+              solved={solvedRows[j] || solvedColumns[i]}
+            />
           );
         })
       )}
