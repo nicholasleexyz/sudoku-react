@@ -60,7 +60,7 @@ export function Board() {
           ]
       )
     );
-    // console.log(blocks);
+
     const b = Array(9).fill(false);
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i];
@@ -70,8 +70,6 @@ export function Board() {
       }
     }
     setSolvedBlocks(b);
-
-    // console.log(rows);
   }, [cells]);
 
   useEffect(() => {
@@ -80,7 +78,7 @@ export function Board() {
     const rowsSolved = solvedRows.reduce((a, b) => a && b);
 
     if (blocksSolved && columnsSolved && rowsSolved) {
-      console.log("You Solved the sudoku!");
+      console.log("You Solved the Puzzle!");
     }
   }, [solvedBlocks, solvedColumns, solvedRows]);
 
