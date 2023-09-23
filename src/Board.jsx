@@ -84,7 +84,7 @@ export function Board() {
 
   return (
     <>
-      <button onClick={() => setCounter((a) => (a + 1) % 4)}>asfd</button>
+      <button onClick={() => setCounter((a) => (a + 1) % 5)}>asfd</button>
       <div className="board">
         {[...Array(9).keys()].map((j) =>
           [...Array(9).keys()].map((i) => {
