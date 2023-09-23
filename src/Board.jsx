@@ -6,10 +6,22 @@ import { cellsContext } from "./Contexts";
 export function Board() {
   const [solvedRows, setSolvedRows] = useState(Array(9).fill(false));
   const [solvedColumns, setSolvedColumns] = useState(Array(9).fill(false));
-
   const [solvedBlocks, setSolvedBlocks] = useState(Array(9).fill(false));
-
   const [cells, setCells] = useContext(cellsContext);
+
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    const a = async () =>
+      await fetch("./puzzles.json")
+        .then((res) => res.json())
+        .then((json) => {
+          const p = json[Object.keys(json)[counter]].flat().map((n) => n - 1);
+          setCells(p);
+        });
+
+    a();
+  }, [setCells, counter]);
 
   useEffect(() => {
     const rows = [...Array(9).keys()]
@@ -40,27 +52,6 @@ export function Board() {
     }
     setSolvedColumns(c);
 
-    /*
-      block rows - 9 of them (000 111 222)
-      board rows - 9 of them (012 345 678)
-
-      (000 111 222) * 9 = (000 999 181818)
-      board row * 3
-
-      boardRows = 0..9.map(r => r * 3) // 
-      blockRows = 0..9.map(r => (r % 3) * 18)
-
-      val = 0..9.map(r => (r * 3) + ((r % 3) * 18)) // prolly this
-
-      cell = blockRow * 18 + boardRow * 3
-
-     */
-
-    // const a = [...Array(9).keys()].map((i) => i % 3); // 0 1 2 0 1 2 0 1 2
-    // const b = [...Array(9).keys()].map((i) => (i % 3) * 9); // 0 9 18 0 9 18 0 9 18
-    // // const z = [...Array(9).keys()].map((i) => Math.floor(i / 3) * 9 + (i % 3));
-    // const v = [...Array(9).keys()].map((i) => Math.floor(i / 3)); // 000 111 222
-
     const blocks = [...Array(9).keys()].map((i) =>
       [...Array(9).keys()].map(
         (j) =>
@@ -69,13 +60,13 @@ export function Board() {
           ]
       )
     );
-    console.log(blocks);
+    // console.log(blocks);
     const b = Array(9).fill(false);
     for (let i = 0; i < blocks.length; i++) {
       const block = blocks[i];
       if ([...new Set(block.filter((n) => n >= 0))].length == 9) {
         b[i] = true;
-        console.log("solved row: " + i);
+        // console.log("solved cell block: " + i);
       }
     }
     setSolvedBlocks(b);
@@ -83,27 +74,36 @@ export function Board() {
     // console.log(rows);
   }, [cells]);
 
-  // useEffect(() => {
-  //   console.log(solvedRows);
-  // }, [solvedRows]);
+  useEffect(() => {
+    const blocksSolved = solvedBlocks.reduce((a, b) => a && b);
+    const columnsSolved = solvedColumns.reduce((a, b) => a && b);
+    const rowsSolved = solvedRows.reduce((a, b) => a && b);
+
+    if (blocksSolved && columnsSolved && rowsSolved) {
+      console.log("You Solved the sudoku!");
+    }
+  }, [solvedBlocks, solvedColumns, solvedRows]);
 
   return (
-    <div className="board">
-      {[...Array(9).keys()].map((j) =>
-        [...Array(9).keys()].map((i) => {
-          return (
-            <Cell
-              key={j * 9 + i}
-              index={j * 9 + i}
-              solved={
-                solvedRows[j] ||
-                solvedColumns[i] ||
-                solvedBlocks[Math.floor(i / 3) + Math.floor(j / 3) * 3]
-              }
-            />
-          );
-        })
-      )}
-    </div>
+    <>
+      <button onClick={() => setCounter((a) => (a + 1) % 4)}>asfd</button>
+      <div className="board">
+        {[...Array(9).keys()].map((j) =>
+          [...Array(9).keys()].map((i) => {
+            return (
+              <Cell
+                key={j * 9 + i}
+                index={j * 9 + i}
+                solved={
+                  solvedRows[j] ||
+                  solvedColumns[i] ||
+                  solvedBlocks[Math.floor(i / 3) + Math.floor(j / 3) * 3]
+                }
+              />
+            );
+          })
+        )}
+      </div>
+    </>
   );
 }
