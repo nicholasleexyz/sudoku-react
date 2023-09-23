@@ -56,29 +56,29 @@ export function Board() {
 
      */
 
-    const a = [...Array(9).keys()].map((i) => i % 3); // 0 1 2 0 1 2 0 1 2
-    const b = [...Array(9).keys()].map((i) => (i % 3) * 9); // 0 9 18 0 9 18 0 9 18
-    // const z = [...Array(9).keys()].map((i) => Math.floor(i / 3) * 9 + (i % 3));
-    const v = [...Array(9).keys()].map((i) => Math.floor(i / 3)); // 000 111 222
-    const z = [...Array(9).keys()].map((i) =>
-      // [...Array(9).keys()].map((j) => Math.floor(j / 3))
-      // [...Array(9).keys()].map((j) => Math.floor(i / 3) * 18)
-      // [...Array(9).keys()].map((j) => Math.floor(j / 3) * 9)
-      // [...Array(9).keys()].map((j) => j % 3)
+    // const a = [...Array(9).keys()].map((i) => i % 3); // 0 1 2 0 1 2 0 1 2
+    // const b = [...Array(9).keys()].map((i) => (i % 3) * 9); // 0 9 18 0 9 18 0 9 18
+    // // const z = [...Array(9).keys()].map((i) => Math.floor(i / 3) * 9 + (i % 3));
+    // const v = [...Array(9).keys()].map((i) => Math.floor(i / 3)); // 000 111 222
+
+    const blocks = [...Array(9).keys()].map((i) =>
       [...Array(9).keys()].map(
-        (j) => Math.floor(j / 3) * 9 + (j % 3) + i * 3 + Math.floor(i / 3) * 18
+        (j) =>
+          cells[
+            Math.floor(j / 3) * 9 + (j % 3) + i * 3 + Math.floor(i / 3) * 18
+          ]
       )
     );
-    console.log(z);
-    // const b = Array(9).fill(false);
-    // for (let i = 0; i < blocks.length; i++) {
-    //   const block = blocks[i];
-    //   if ([...new Set(block.filter((n) => n >= 0))].length == 9) {
-    //     b[i] = true;
-    //     // console.log("solved row: " + i);
-    //   }
-    // }
-    // setSolvedBlocks(b);
+    console.log(blocks);
+    const b = Array(9).fill(false);
+    for (let i = 0; i < blocks.length; i++) {
+      const block = blocks[i];
+      if ([...new Set(block.filter((n) => n >= 0))].length == 9) {
+        b[i] = true;
+        console.log("solved row: " + i);
+      }
+    }
+    setSolvedBlocks(b);
 
     // console.log(rows);
   }, [cells]);
@@ -95,7 +95,11 @@ export function Board() {
             <Cell
               key={j * 9 + i}
               index={j * 9 + i}
-              solved={solvedRows[j] || solvedColumns[i]}
+              solved={
+                solvedRows[j] ||
+                solvedColumns[i] ||
+                solvedBlocks[Math.floor(i / 3) + Math.floor(j / 3) * 3]
+              }
             />
           );
         })
